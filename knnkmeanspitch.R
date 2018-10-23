@@ -31,17 +31,19 @@ table(newpitch$pitch_type)
 
 #The pitch location and type for every pitch, by pitch type and overall
 
-ggplot(pitchperfect, aes(px, pz, color=pitch_type)) + geom_point() +
+ggplot(pitchperfect, aes(px, pz, color=pitch_type)) + geom_point(size = 3) +
 #  facet_wrap(~ pitch_type) + 
   geom_path(aes(x, y), data=kZone, lwd=2, col="black", alpha = 0.2) + 
-  scale_y_continuous(limits=c(0,5)) 
+  scale_y_continuous(limits=c(0,5)) +
+  theme_grey(base_size = 17)
 
 #The pitch location and type for Buehrle's pitches, by pitch type and overall
 
-ggplot(newpitch, aes(px, pz, color=pitch_type)) + geom_point() +
+ggplot(newpitch, aes(px, pz, color=pitch_type)) + geom_point(size = 3) +
 #   facet_wrap(~ pitch_type) + 
   geom_path(aes(x, y), data=kZone, lwd=2, col="black", alpha = 0.2) + 
-  scale_y_continuous(limits=c(0,5)) 
+  scale_y_continuous(limits=c(0,5)) +
+  theme_grey(base_size = 17)
 
 #Writing functions for performing K-nearest neighbours
 #Euclidean distance
@@ -126,10 +128,11 @@ table(best1)
 
 #Plotting the points based on their classification
 
-ggplot(pitchperfect, aes(px, pz, color=best1)) + geom_point() +
+ggplot(pitchperfect, aes(px, pz, color=best1)) + geom_point(size = 3) +
 #  facet_wrap(~ pitch_type) + 
   geom_path(aes(x, y), data=kZone, lwd=2, col="black", alpha = 0.2) + 
-  scale_y_continuous(limits=c(0,5))
+  scale_y_continuous(limits=c(0,5)) +
+  theme_grey(base_size = 17)
 
 #Doing the same as above for the Buehrle pitch data
 
@@ -140,10 +143,11 @@ plot(accu2[[3]]);lines(accu2[[3]])
 best2 <- my_knn(accu2[[1]], pitchloc2)
 table(best2)
 
-ggplot(newpitch, aes(px, pz, color=best2)) + geom_point() +
+ggplot(newpitch, aes(px, pz, color=best2)) + geom_point(size = 3) +
 #  facet_wrap(~ pitch_type) + 
   geom_path(aes(x, y), data=kZone, lwd=2, col="black", alpha = 0.2) + 
-  scale_y_continuous(limits=c(0,5))
+  scale_y_continuous(limits=c(0,5)) +
+  theme_grey(base_size = 17)
 
 #Now moving on to K-means.  First find the mean location for each type of pitch from the raw data
 #Then, perform K-means to find clusters based on those initial mean locations
@@ -161,14 +165,16 @@ pitchperfect$cluster <- row.names(dd2)[cl$cluster]
 sum(pitchperfect$pitch_type==pitchperfect$cluster)/244
 centers <- as.data.frame(cl$centers)
 ggplot(data=pitchperfect, aes(px, pz, color=cluster)) + 
-  geom_point() +
+  geom_point(size = 3) +
   geom_path(aes(x, y), data=kZone, lwd=2, col="black", alpha = 0.2) +
-  geom_point(data=dd2, aes(x=V1,y=V2, color=row.names(dd2)), size=50, alpha=.3, show_guide=F)
+  geom_point(data=dd2, aes(x=V1,y=V2, color=row.names(dd2)), size=50, alpha=.3, show_guide=F) +
+  theme_grey(base_size = 17)
 
 ggplot(data=pitchperfect, aes(px, pz, color=pitch_type)) + 
-  geom_point() +
+  geom_point(size = 3) +
   geom_path(aes(x, y), data=kZone, lwd=2, col="black", alpha = 0.2) +
-  geom_point(data=centers, aes(x=px,y=pz, color=row.names(dd2)), size=50, alpha=.3, show_guide=F)
+  geom_point(data=centers, aes(x=px,y=pz, color=row.names(dd2)), size=50, alpha=.3, show_guide=F) +
+  theme_grey(base_size = 17)
 
 #Now with Buehrle data
 
@@ -182,11 +188,13 @@ newpitch$cluster <- row.names(ee2)[cl2$cluster]
 sum(newpitch$pitch_type==newpitch$cluster)/116
 centers2 <- as.data.frame(cl2$centers)
 ggplot(data=newpitch, aes(px, pz, color=cluster)) + 
-  geom_point() +
+  geom_point(size = 3) +
   geom_path(aes(x, y), data=kZone, lwd=2, col="black", alpha = 0.2) +
-  geom_point(data=ee2, aes(x=V1,y=V2, color=row.names(ee2)), size=50, alpha=.3, show_guide=F)
+  geom_point(data=ee2, aes(x=V1,y=V2, color=row.names(ee2)), size=50, alpha=.3, show_guide=F) +
+  theme_grey(base_size = 17)
 
 ggplot(data=newpitch, aes(px, pz, color=pitch_type)) + 
-  geom_point() +
+  geom_point(size = 3) +
   geom_path(aes(x, y), data=kZone, lwd=2, col="black", alpha = 0.2) +
-  geom_point(data=centers2, aes(x=px,y=pz, color=row.names(ee2)), size=50, alpha=.3, show_guide=F)
+  geom_point(data=centers2, aes(x=px,y=pz, color=row.names(ee2)), size=50, alpha=.3, show_guide=F) +
+  theme_grey(base_size = 17)
